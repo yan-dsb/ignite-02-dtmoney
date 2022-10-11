@@ -2,34 +2,36 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   z-index: 1;
-  background: #5429CC;
-  min-height: 212px;
+  background: var(--blue);
   position: relative;
 `;
 
 export const Content = styled.div`
+  max-width: 1120px;
   display: flex;
   align-items: center;
-  margin: 0 8%;
-  padding-top: 36px;
+  justify-content: space-between;
 
-  img {
-    margin-right: auto;
-  }
+  margin: 0 auto;
+  padding: 2rem 1rem 12rem;
 
   button {
-    all: unset;
+    border: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 195px;
-    height: 48px;
-    background: #6933FF;
-    margin-left: auto;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1em;
+    background: var(--blue-light);
+    border-radius: 0.25rem;
+    color: #fff;
+    font-size: 1rem;
     font-weight: 600;
+    padding: 0 2rem;
+    height: 3rem;
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 `;

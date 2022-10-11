@@ -6,7 +6,7 @@ export function Header(): JSX.Element {
   return (
     <Container>
       <Content className="container">
-        <img src={logoImg} alt="DT Money Logo" />
+        <img src={logoImg} alt="dt money logo" />
         <button type="button">Nova transação</button>
       </Content>
     </Container>
