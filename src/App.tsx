@@ -1,12 +1,12 @@
-import React from 'react'
-import { Content } from './components/Content'
-import { Header } from './components/Header'
+import React from 'react';
+import { Header } from './components/Header';
+import { Dashboard } from './components/Dashboard';
 
-export function App (): JSX.Element {
+export function App(): JSX.Element {
   return (
     <>
       <Header />
-      <Content />
+      <Dashboard />
     </>
-  )
+  );
 }

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.header`
   z-index: 1;
   background: var(--blue);
-  position: relative;
 `;
 
 export const Content = styled.div`
