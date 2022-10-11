@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.header`
   z-index: 1;
   background: #5429CC;
   min-height: 212px;
   position: relative;
-`
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -32,4 +32,4 @@ export const Content = styled.div`
     font-size: 1em;
     font-weight: 600;
   }
-`
+`;

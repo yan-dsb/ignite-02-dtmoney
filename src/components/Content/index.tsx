@@ -1,7 +1,8 @@
-import { TransactionList } from '../TransactionList'
-import { Card, CardBody, CardsContainer, Container } from './styles'
+import React from 'react';
+import { TransactionList } from '../TransactionList';
+import { Card, CardBody, CardsContainer, Container } from './styles';
 
-export function Content(){
+export function Content(): JSX.Element{
   return (
     <Container>
       <CardsContainer>
@@ -28,5 +29,5 @@ export function Content(){
         <TransactionList />
       </div>
     </Container>
-  )
+  );
 }

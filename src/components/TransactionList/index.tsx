@@ -5,5 +5,5 @@ export function TransactionList(){
       <li>Transação</li>
       <li>Transação</li>
     </ul>
-  )
+  );
 }

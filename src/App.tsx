@@ -1,12 +1,12 @@
-import { Content } from './components/Content';
-import { Header } from './components/Header';
+import React from 'react'
+import { Content } from './components/Content'
+import { Header } from './components/Header'
 
-export function App() {
+export function App (): JSX.Element {
   return (
-    <div>
+    <>
       <Header />
       <Content />
-    </div>
-
-  );
+    </>
+  )
 }
