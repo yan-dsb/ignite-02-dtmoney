@@ -8,27 +8,25 @@ import { useTransactions } from '../../hooks/transactions';
 export function Summary(): JSX.Element {
   const { transactions } = useTransactions();
 
-  const totalIncome = useMemo(() => {
-    return transactions.reduce((acc, current) => {
-      if (current.type === 'deposit') {
-        return acc + current.amount;
+  const summary = useMemo(() => {
+    return transactions.reduce(
+      (acc, transaction) => {
+        if (transaction.type === 'deposit') {
+          acc.deposits += transaction.amount;
+          acc.total += transaction.amount;
+        } else {
+          acc.withdraws += transaction.amount;
+          acc.total -= transaction.amount;
+        }
+        return acc;
+      },
+      {
+        deposits: 0,
+        withdraws: 0,
+        total: 0
       }
-      return acc + 0;
-    }, 0);
+    );
   }, [transactions]);
-
-  const totalOutCome = useMemo(() => {
-    return transactions.reduce((acc, current) => {
-      if (current.type === 'withdraw') {
-        return acc + current.amount;
-      }
-      return acc + 0;
-    }, 0);
-  }, [transactions]);
-
-  const total = useMemo(() => {
-    return totalIncome - totalOutCome;
-  }, [totalIncome, totalOutCome]);
 
   const getNumberFormatted = useCallback((amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -46,7 +44,7 @@ export function Summary(): JSX.Element {
             <p>Entradas</p>
             <img src={incomeImg} alt="entradas" />
           </CardHeader>
-          <strong>{getNumberFormatted(totalIncome)}</strong>
+          <strong>{getNumberFormatted(summary.deposits)}</strong>
         </CardBody>
       </Card>
       <Card>
@@ -55,7 +53,7 @@ export function Summary(): JSX.Element {
             <p>Saídas</p>
             <img src={outcomeImg} alt="saídas" />
           </CardHeader>
-          <strong>- {getNumberFormatted(totalOutCome)}</strong>
+          <strong>- {getNumberFormatted(summary.withdraws)}</strong>
         </CardBody>
       </Card>
       <Card className="background">
@@ -64,7 +62,7 @@ export function Summary(): JSX.Element {
             <p>Total</p>
             <img src={totalImg} alt="total" />
           </CardHeader>
-          <strong>{getNumberFormatted(total)}</strong>
+          <strong>{getNumberFormatted(summary.total)}</strong>
         </CardBody>
       </Card>
     </Container>
