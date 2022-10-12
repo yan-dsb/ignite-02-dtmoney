@@ -20,11 +20,27 @@ createServer({
         },
         {
           id: 2,
+          title: 'Freelancer Webdev 2',
+          type: 'deposit',
+          category: 'Dev',
+          amount: 4000,
+          createdAt: new Date('2022-10-12 10:00:00')
+        },
+        {
+          id: 3,
           title: 'Aluguel',
           type: 'withdraw',
           category: 'Casa',
           amount: 1500,
           createdAt: new Date('2023-01-08 10:00:00')
+        },
+        {
+          id: 4,
+          title: 'Aluguel',
+          type: 'withdraw',
+          category: 'Casa',
+          amount: 1500,
+          createdAt: new Date('2023-02-08 10:00:00')
         }
       ]
     });
