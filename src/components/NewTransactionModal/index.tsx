@@ -4,7 +4,7 @@ import { Container, RadioBox, TransactionTypeContainer } from './styles';
 import closeImg from '../../assets/close.svg';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
-import { api } from '../../services/api';
+import { useTransactions } from '../../hooks/transactions';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -17,24 +17,25 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose
 }: NewTransactionModalProps): JSX.Element {
+  const { createTransaction } = useTransactions();
   const [title, setTitle] = useState('');
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState('');
   const [type, setType] = useState('deposit');
 
-  const handleCreateNewTransaction = useCallback(
-    async (event: React.FormEvent) => {
-      const data = {
-        title,
-        value,
-        category,
-        type
-      };
-      const response = await api.post('/transactions', data);
-      console.log(response.data);
-    },
-    [title, value, category, type]
-  );
+  const handleCreateNewTransaction = useCallback(async () => {
+    await createTransaction({
+      title,
+      amount: value,
+      category,
+      type
+    });
+    setTitle('');
+    setValue(0);
+    setCategory('');
+    setType('deposit');
+    onRequestClose();
+  }, [title, value, category, type, createTransaction, onRequestClose]);
 
   return (
     <Modal
@@ -55,7 +56,7 @@ export function NewTransactionModal({
         onSubmit={event => {
           event.preventDefault();
           void (async () => {
-            await handleCreateNewTransaction(event);
+            await handleCreateNewTransaction();
           })();
         }}
       >

@@ -1,6 +1,7 @@
 import React, {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -17,12 +18,16 @@ interface Transaction {
   createdAt: string;
 }
 
+type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
+
 interface TransactionsContextData {
   transactions: Transaction[];
+  createTransaction: (data: TransactionInput) => Promise<void>;
 }
 
-export const TransactionsContext =
-  createContext<TransactionsContextData | null>(null);
+export const TransactionsContext = createContext<TransactionsContextData>(
+  {} as any
+);
 
 interface TransactionsProviderProps {
   children: ReactNode;
@@ -42,9 +47,17 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
       .catch(err => console.log(err));
   }, []);
 
+  const createTransaction = useCallback(async (data: TransactionInput) => {
+    const response = await api.post('/transactions', {
+      ...data,
+      createdAt: new Date()
+    });
+    setTransactions(prevSate => [...prevSate, response.data.transaction]);
+  }, []);
+
   const provider = useMemo(() => {
-    return { transactions };
-  }, [transactions]);
+    return { transactions, createTransaction };
+  }, [transactions, createTransaction]);
 
   return (
     <TransactionsContext.Provider value={provider}>
